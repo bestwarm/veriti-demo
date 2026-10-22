@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#171126">
+<title>veriti VPN — Demo</title>
+<style>
+:root{--bg:#171126;--panel:#211a32;--panel2:#29213e;--text:#f7f4ff;--muted:#aaa2bd;--blue:#4388ff;--blue2:#2467e8;--line:#3b3150}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 50% 0%,rgba(100,94,115,.22),transparent 42%),radial-gradient(ellipse at 50% 100%,rgba(74,62,100,.12),transparent 45%),var(--bg)}
+main{width:min(100%,480px);margin:auto;padding:28px 20px calc(28px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:12px;margin:8px 0 32px}
+.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#37304c,#211a32);display:grid;place-items:center;border:1px solid #4b405f;box-shadow:0 8px 26px #09061155}
+.logo svg{width:26px;height:26px}
+.brand{font-size:24px;font-weight:750;letter-spacing:-.7px}.brand span{color:#a99dca;font-weight:500}
+.tag{margin-left:auto;border:1px solid #504466;border-radius:999px;padding:6px 10px;color:#c9c0dc;font-size:11px;letter-spacing:.08em}
+h1{font-size:31px;line-height:1.12;letter-spacing:-1px;margin:0 0 9px}
+.sub{color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 24px}
+.card{background:linear-gradient(160deg,rgba(43,34,64,.96),rgba(30,24,46,.98));border:1px solid var(--line);border-radius:24px;padding:20px;margin-bottom:16px;box-shadow:0 16px 42px #08050f26}
+.statusrow{display:flex;align-items:center;gap:12px}
+.statusicon{width:42px;height:42px;border-radius:15px;background:#332a47;display:grid;place-items:center;color:#aaa0c2}
+.statusicon svg{width:23px;height:23px}
+.statuslabel{font-size:12px;color:var(--muted);margin-bottom:4px}.status{font-weight:650;font-size:16px}
+.pill{margin-left:auto;font-size:11px;border-radius:999px;padding:7px 10px;background:#342c45;color:#bdb4d0;border:1px solid #514563}
+.pill.on{background:#143c78;color:#cfe1ff;border-color:#3279ed}
+.connect{width:100%;border:0;border-radius:16px;padding:16px;margin-top:20px;color:white;font-size:16px;font-weight:700;background:linear-gradient(180deg,#4a91ff,#286ce9);box-shadow:0 8px 22px #2367df35;cursor:pointer}
+.connect:active{transform:scale(.99)}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;margin:26px 3px 12px}
+h2{font-size:17px;margin:0;letter-spacing:-.25px}.small{font-size:12px;color:var(--muted)}
+.servers{display:grid;gap:10px}
+.server{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border-radius:17px;text-align:left;color:var(--text);background:#211a32;border:1px solid #3a304d;cursor:pointer;transition:background .15s,border-color .15s}
+.server.selected{background:linear-gradient(110deg,#173b75,#20345b);border:1.5px solid var(--blue);box-shadow:0 0 0 1px #4388ff12 inset}
+.flag{font-size:25px;width:34px;text-align:center}
+.servername{font-weight:650;font-size:14px}.serverdesc{color:#aaa2bd;font-size:12px;margin-top:4px}
+.ping{margin-left:auto;color:#aaa2bd;font-size:12px;white-space:nowrap}.selected .ping{color:#c8ddff}
+.check{width:19px;height:19px;border-radius:50%;border:1px solid #615675;margin-left:2px;display:grid;place-items:center;color:white;font-size:12px}
+.selected .check{background:var(--blue);border-color:var(--blue)}
+.premium{display:flex;align-items:center;gap:14px}
+.crown{width:44px;height:44px;border-radius:15px;background:#3a2f4e;display:grid;place-items:center;font-size:21px}
+.premiumtext{flex:1}.premiumtext strong{font-size:14px}.premiumtext p{font-size:12px;color:var(--muted);margin:5px 0 0;line-height:1.4}
+.premium button{border:1px solid #5b4d74;background:#302641;color:#e6ddf8;border-radius:12px;padding:10px 12px;font-weight:650}
+.foot{text-align:center;color:#827995;font-size:11px;line-height:1.5;padding:8px 14px}
+.toast{display:none;margin-top:12px;text-align:center;color:#c7ddff;font-size:13px}.toast.show{display:block}
+@media(min-width:430px){main{padding-top:38px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.8 20 6v5.3c0 5.1-3.4 8.3-8 10-4.6-1.7-8-4.9-8-10V6l8-3.2Z" stroke="#d9d0ef" stroke-width="1.7"/><path d="m8.5 12 2.2 2.2 4.8-5" stroke="#6fa7ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div class="brand">veriti <span>VPN</span></div><div class="tag">DEMO</div>
+</header>
+<h1>Твой интернет.<br>Твои правила.</h1>
+<p class="sub">Приватное подключение в лаконичном интерфейсе veriti.</p>
+<section class="card" aria-live="polite">
+<div class="statusrow">
+<div class="statusicon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 20 6.2v5.1c0 4.7-3.1 7.8-8 9.7-4.9-1.9-8-5-8-9.7V6.2L12 3Z" stroke="currentColor" stroke-width="1.7"/><path d="M9 12h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+<div><div class="statuslabel">Состояние соединения</div><div class="status" id="status">Не подключено</div></div>
+<div class="pill" id="pill">ЗАЩИТА ВЫКЛ.</div>
+</div>
+<button class="connect" id="connect">Подключить демо</button>
+<div class="toast" id="toast">Демо-режим: реальный VPN не запускается.</div>
+</section>
+<div class="sectionhead"><h2>Выбери сервер</h2><span class="small">3 локации</span></div>
+<div class="servers" role="group" aria-label="Выбор сервера">
+<button class="server selected" data-server="Германия" aria-pressed="true"><span class="flag">🇩🇪</span><span><div class="servername">Германия</div><div class="serverdesc">Оптимально для скорости</div></span><span class="ping">24 ms</span><span class="check">✓</span></button>
+<button class="server" data-server="Нидерланды" aria-pressed="false"><span class="flag">🇳🇱</span><span><div class="servername">Нидерланды</div><div class="serverdesc">Стабильное соединение</div></span><span class="ping">31 ms</span><span class="check"></span></button>
+<button class="server" data-server="США" aria-pressed="false"><span class="flag">🇺🇸</span><span><div class="servername">США</div><div class="serverdesc">Северная Америка</div></span><span class="ping">108 ms</span><span class="check"></span></button>
+</div>
+<div class="sectionhead"><h2>Дополнительные возможности</h2></div>
+<section class="card premium">
+<div class="crown">✦</div><div class="premiumtext"><strong>veriti Premium</strong><p>Больше локаций и расширенные настройки — макет будущей функции.</p></div><button id="premium">Подробнее</button>
+</section>
+<div class="foot">Это демонстрационный интерфейс. Он не создаёт VPN-туннель, не меняет IP-адрес и не обрабатывает платежи.</div>
+</main>
+<script>
+const statusEl=document.getElementById('status'), pill=document.getElementById('pill'), connect=document.getElementById('connect'), toast=document.getElementById('toast');
+let connected=false, selected='Германия';
+document.querySelectorAll('.server').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.server').forEach(b=>{b.classList.remove('selected');b.setAttribute('aria-pressed','false');b.querySelector('.check').textContent='';});
+ btn.classList.add('selected');btn.setAttribute('aria-pressed','true');btn.querySelector('.check').textContent='✓';selected=btn.dataset.server;
+ if(connected){statusEl.textContent='Демо подключено · '+selected;}
+}));
+connect.addEventListener('click',()=>{
+ connected=!connected;
+ statusEl.textContent=connected?'Демо подключено · '+selected:'Не подключено';
+ pill.textContent=connected?'ДЕМО РЕЖИМ':'ЗАЩИТА ВЫКЛ.';
+ pill.classList.toggle('on',connected);
+ connect.textContent=connected?'Отключить демо':'Подключить демо';
+ toast.classList.add('show');
+});
+document.getElementById('premium').addEventListener('click',()=>{alert('veriti Premium — это макет. Покупки и платежи не подключены.');});
+</script>
+</body>
+</html>
